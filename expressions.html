@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -6,10 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Les Expressions - Claude Grand</title>
+<title>Expressions - Claude Grand</title>
 
 <style>
-
 body{
     margin:0;
     font-family:Arial, sans-serif;
@@ -49,6 +47,7 @@ header{
     overflow:hidden;
     text-decoration:none;
     color:white;
+    cursor:pointer;
 }
 
 .card img{
@@ -66,6 +65,67 @@ header{
     margin-top:0;
 }
 
+/* ===== VISIONNEUSE ===== */
+
+.viewer{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.92);
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+#viewerImg{
+    max-width:90vw;
+    max-height:80vh;
+    object-fit:contain;
+}
+
+#viewerTitle{
+    color:white;
+    font-size:1.5rem;
+    margin-top:20px;
+    text-align:center;
+    font-family:Georgia, serif;
+}
+
+.close-viewer,
+.prev-viewer,
+.next-viewer{
+    position:absolute;
+    color:white;
+    font-size:2.5rem;
+    cursor:pointer;
+    user-select:none;
+    z-index:10000;
+    background:rgba(0,0,0,0.5);
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.close-viewer{
+    top:20px;
+    right:20px;
+}
+
+.prev-viewer{
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.next-viewer{
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+}
 </style>
 
 </head>
@@ -73,13 +133,17 @@ header{
 <body>
 
 <header>
+    <h1>Expressions</h1>
 
- <h1>Les Expressions </h1>
- <a href="index.html" class="retour">
-      ← Retour à l'accueil
- </a>
-
+    <a href="index.html" class="retour">
+        ← Retour à l'accueil
+    </a>
 </header>
+
+<div class="gallery">
+
+<!-- COLLE ICI TES TABLEAUX ENCRES ET FUSAINS -->
+
 
 <div class="gallery">
 <a class="card" href="images/expressions/chat.jpg" target="_blank">
@@ -190,5 +254,80 @@ Ecriture reflexe en deux couleurs
     
     
 </div>
+<div class="viewer" id="viewer">
+    <span class="close-viewer" onclick="closeViewer()">×</span>
+    <span class="prev-viewer" onclick="changeImage(-1)">‹</span>
 
+    <img id="viewerImg" src="">
+
+    <div id="viewerTitle"></div>
+
+    <span class="next-viewer" onclick="changeImage(1)">›</span>
+</div>
+
+<script>
+let currentImages = [];
+let currentTitles = [];
+let currentIndex = 0;
+
+document.querySelectorAll(".gallery").forEach(gallery => {
+    const cards = gallery.querySelectorAll(".card");
+
+    cards.forEach((card, index) => {
+        card.addEventListener("click", function(event){
+            event.preventDefault();
+
+            currentImages = Array.from(cards).map(c => c.getAttribute("href"));
+
+            currentTitles = Array.from(cards).map(c => {
+                const title = c.querySelector("h3");
+                return title ? title.textContent : "";
+            });
+
+            currentIndex = index;
+
+            document.getElementById("viewerImg").src = currentImages[currentIndex];
+            document.getElementById("viewerTitle").textContent = currentTitles[currentIndex];
+
+            document.getElementById("viewer").style.display = "flex";
+        });
+    });
+});
+
+function closeViewer(){
+    document.getElementById("viewer").style.display = "none";
+}
+
+function changeImage(direction){
+    currentIndex += direction;
+
+    if(currentIndex < 0){
+        currentIndex = currentImages.length - 1;
+    }
+
+    if(currentIndex >= currentImages.length){
+        currentIndex = 0;
+    }
+
+    document.getElementById("viewerImg").src = currentImages[currentIndex];
+    document.getElementById("viewerTitle").textContent = currentTitles[currentIndex];
+}
+
+document.addEventListener("keydown", function(event){
+    if(event.key === "Escape"){
+        closeViewer();
+    }
+
+    if(event.key === "ArrowRight"){
+        changeImage(1);
+    }
+
+    if(event.key === "ArrowLeft"){
+        changeImage(-1);
+    }
+});
+</script>
+
+</body>
+</html>
     
