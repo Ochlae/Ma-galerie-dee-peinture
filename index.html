@@ -79,6 +79,78 @@ footer{
     background:#090909;
 }
 
+.contact-section{
+    max-width:700px;
+    margin:70px auto;
+    padding:40px;
+    background:#181818;
+    color:white;
+    border-radius:14px;
+    box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
+
+.contact-section h2{
+    text-align:center;
+    font-size:2rem;
+    margin-bottom:20px;
+    color:white;
+}
+
+.contact-section p{
+    max-width:650px;
+    margin:0 auto 35px auto;
+    text-align:center;
+    color:#cccccc;
+    line-height:1.7;
+}
+
+.contact-form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.contact-form input,
+.contact-form textarea{
+    padding:15px;
+    border:none;
+    border-radius:8px;
+    background:#2a2a2a;
+    color:white;
+    font-size:1rem;
+    font-family:Arial, sans-serif;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder{
+    color:#999;
+}
+
+.contact-form textarea{
+    resize:vertical;
+    min-height:160px;
+}
+
+.contact-form button{
+    padding:15px;
+    border:none;
+    border-radius:8px;
+    background:#b22222;
+    color:white;
+    font-size:1rem;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.contact-form button:hover{
+    background:#d32f2f;
+    transform:scale(1.02);
+}
+
+
+
+    
 @media screen and (max-width:700px){
     h1{
         font-size:2rem;
@@ -136,7 +208,53 @@ Chaque collection ouvre une porte différente sur mon travail, mes couleurs et m
 
 </header>
 
+<section id="contact" class="contact-section">
+
+<h2>Contact</h2>
+
+<p>
+Une œuvre vous touche ?
+
+<br><br>
+
+Vous souhaitez acquérir un tableau, organiser une exposition,
+commander une création ou simplement échanger autour de mon travail ?
+
+<br><br>
+
+Je serai heureux de vous répondre.
+</p>
+
+<form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+
+<input type="hidden" name="access_key"
+value="e49f9f77-dcc0-4f79-8b24-d62bb91557e8">
+
+<input type="text" name="name" placeholder="Votre nom" required>
+
+<input type="email" name="email"
+placeholder="Votre adresse e-mail" required>
+
+<input type="text" name="subject"
+placeholder="Sujet">
+
+<textarea
+name="message"
+rows="6"
+placeholder="Votre message..."
+required></textarea>
+
+<button type="submit">
+Envoyer le message
+</button>
+
+</form>
+
+</section>
+
 <footer>
+© Claude Grand — Ma Galerie de Peinture
+</footer>
 © Claude Grand — Ma Galerie de Peinture
 </footer>
 
